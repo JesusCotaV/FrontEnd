@@ -12,14 +12,36 @@ import { environment } from '../../../environments/environment'
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  title = 'FrontEnd';
-  readonly APIurl = `http://localhost:${environment.puerto}/usuario/`? `https://localhost:${environment.puerto}/usuario/` : `http://localhost:${environment.puerto}/usuario/`;
+  title = 'Login';
+  APIurl:string="";
   usuario: any = {};
   Usuarioxid: any = {};
   messageError: string = "";
 
   constructor(private http: HttpClient, private router: Router) {
 
+  }
+
+  async ngOnInit() {
+    await this.getUrl();
+  }
+
+  async getUrl() {
+    try {
+      debugger;
+      const httpUrl = `http://localhost:${environment.puerto}/usuario/Listar`;
+      const response = await fetch(httpUrl);
+
+      if (response.ok) {
+        // La URL HTTP funciona correctamente
+        this.APIurl = `http://localhost:${environment.puerto}/usuario/`;
+      } else {
+        throw new Error('URL HTTP no disponible');
+      }
+    } catch {
+      // La URL HTTP no funciona, se utiliza la URL HTTPS
+      this.APIurl = `https://localhost:${environment.puerto}/usuario/`;
+    }
   }
 
   GoBack(){
