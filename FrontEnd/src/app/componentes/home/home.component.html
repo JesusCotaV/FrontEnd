@@ -1,0 +1,173 @@
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+    <a href="https://nezter.com/index.html#inicio"><img width="150" alt="Nezter Logo"
+            src="./assets/nezter-logo.png" /></a>
+
+    <div class="spacer"></div>
+    <a *ngIf="UserName === null " href="javascript:void(0)" class="dropbtn" (click)="loginUrl()">Iniciar Sesion</a>
+    <li *ngIf="UserName != null " class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">{{UserName}}</a>
+        <div class="dropdown-content">
+            <a (click)="logOut()" style="cursor: pointer;">Cerrar Sesion</a>
+        </div>
+    </li>
+
+    <a aria-label="Nezter on twitter" target="_blank" rel="noopener" href="https://twitter.com/nezters?lang=en"
+        title="Twitter">
+        <svg id="twitter-logo" height="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+            <rect width="400" height="400" fill="none" />
+            <path
+                d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23"
+                fill="#fff" />
+        </svg>
+    </a>
+    <a style="margin-top: 12px;" aria-label="Nezter on facebook" target="_blank" rel="noopener"
+        href="https://www.facebook.com/people/Nezter-Landing-Solutions/100068119929506/" title="Facebook">
+        <svg id="facebook-logo" height="24" width="56" data-name="Logo" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24" fill="#fff">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path
+                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+        </svg>
+    </a>
+</div>
+
+<div class="content" role="main">
+    <div class="btn-modal">
+        <!-- Button trigger modal -->
+        <button (click)="MessageValue('Nuevo Usuario')" type="button" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop" class="btn btn-round btn-twitter text-left w-100 mb-3">Añadir
+            usuario</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">{{Message}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- Contenido del modal -->
+                <div class="modal-body">
+                    <form #userForm="ngForm" (ngSubmit)="addUsuario(userForm)">
+                        <div class="mb-3">
+                            <label for="InputUsuario1" class="form-label">Usuario</label>
+                            <input [(ngModel)]="usuario.User" type="text" class="form-control" id="InputUsuario1"
+                                aria-describedby="Usuario" name="Usuario">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                            <input [(ngModel)]="usuario.Pass" type="password" class="form-control"
+                                id="exampleInputPassword1" name="Contraseña">
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputName1" class="form-label">Nombre</label>
+                            <input [(ngModel)]="usuario.Nombre" type="text" class="form-control" id="InputName1"
+                                aria-describedby="name" name="Nombre">
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputDireccion1" class="form-label">Direccion</label>
+                            <input [(ngModel)]="usuario.Direccion" type="text" class="form-control" id="InputDireccion1"
+                                aria-describedby="Direccion" name="Direccion">
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputTelefono1" class="form-label">Telefono</label>
+                            <input maxlength="10" minlength="10" [(ngModel)]="usuario.Telefono" type="tel"
+                                class="form-control" id="InputTelefono1" aria-describedby="Telefono" name="Telefono">
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputCodigoPostal1" class="form-label">Codigo Postal</label>
+                            <input [(ngModel)]="usuario.CodigoPostal" type="text" class="form-control"
+                                id="InputCodigoPostal1" aria-describedby="CodigoPostal" name="CodigoPostal">
+                        </div>
+                        <div class="mb-3">
+                            <label for="estado" class="form-label">Estado</label>
+                            <select class="form-control" id="estado" name="estado" [(ngModel)]="estadoSeleccionado"
+                                (ngModelChange)="actualizarCiudad()">
+                                <option value="">Seleccionar estado</option>
+                                <option *ngFor="let estado of estados" [ngValue]="estado">{{ estado }}</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ciudad" class="form-label">Ciudad</label>
+                            <select class="form-control" id="ciudad" name="ciudad" [(ngModel)]="ciudadSeleccionada">
+                                <option value="">Seleccionar ciudad</option>
+                                <option *ngFor="let ciudad of ciudadesPorEstado[estadoSeleccionado]" [ngValue]="ciudad">
+                                    {{ ciudad }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="InputTipoUsuario1" class="form-label">Tipo Usuario</label>
+                            <input [(ngModel)]="usuario.TipoUsuario" type="text" class="form-control"
+                                id="InputTipoUsuario1" aria-describedby="TipoUsuario" name="TipoUsuario">
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <!-- Fin del Contenido del modal -->
+        </div>
+    </div>
+
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Direccion</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">CodigoPostal</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Ciudad</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Contraseña</th>
+                <th scope="col">TipoUsuario</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let note of pagedNotes">
+            <tr>
+                <th scope="row">{{note.ID}}</th>
+                <td>{{note.Nombre}}</td>
+                <td>{{note.Direccion}}</td>
+                <td>{{note.Telefono}}</td>
+                <td>{{note.CodigoPostal}}</td>
+                <td>{{note.Estado}}</td>
+                <td>{{note.Ciudad}}</td>
+                <td>{{note.Usuario}}</td>
+                <td>{{note.Pass}}</td>
+                <td>{{note.TipoUsuario}}</td>
+                <td><button (click)="deleteUsuario(note.ID)"
+                        class="btn btn-round btn-twitter text-left w-100 mb-3">Eliminar</button></td>
+                <td><button (click)="GetUser(note.ID)" type="button" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"
+                        class="btn btn-round btn-twitter text-left w-100 mb-3">Editar</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Paginación -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item" [ngClass]="{ disabled: currentPage === 1 }">
+                <a class="page-link" href="#" (click)="pageChanged(currentPage - 1)">Anterior</a>
+            </li>
+            <li class="page-item" *ngFor="let page of getRange()" [ngClass]="{ active: page === currentPage }">
+                <a class="page-link" (click)="setCurrentPage(page)">{{ page }}</a>
+            </li>
+            <li class="page-item" [ngClass]="{ disabled: currentPage === totalPages }">
+                <a class="page-link" href="#" (click)="pageChanged(currentPage + 1)">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+<router-outlet></router-outlet>
