@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { environment } from '../../../environments/environment'
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent {
   title = 'FrontEnd';
-  readonly APIurl = "http://localhost:34255/usuario/";
+  readonly APIurl = `http://localhost:${environment.puerto}/usuario/`? `http://localhost:${environment.puerto}/usuario/` : `https://localhost:${environment.puerto}/usuario/`;
   usuario: any = {};
   Usuarioxid: any = {};
   messageError: string = "";

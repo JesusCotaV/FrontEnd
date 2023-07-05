@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { environment } from '../../../environments/environment'
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class HomeComponent implements OnInit {
   title = 'FrontEnd';
-  readonly APIurl = "http://localhost:34255/usuario/";
+  readonly APIurl = `http://localhost:${environment.puerto}/usuario/`? `http://localhost:${environment.puerto}/usuario/` : `https://localhost:${environment.puerto}/usuario/`;
   usuario: any = {};
   Usuarioxid: any = {};
 
