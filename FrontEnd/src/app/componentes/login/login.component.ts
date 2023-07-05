@@ -13,7 +13,7 @@ import { environment } from '../../../environments/environment'
 })
 export class LoginComponent {
   title = 'FrontEnd';
-  readonly APIurl = `http://localhost:${environment.puerto}/usuario/`? `http://localhost:${environment.puerto}/usuario/` : `https://localhost:${environment.puerto}/usuario/`;
+  readonly APIurl = `http://localhost:${environment.puerto}/usuario/`? `https://localhost:${environment.puerto}/usuario/` : `http://localhost:${environment.puerto}/usuario/`;
   usuario: any = {};
   Usuarioxid: any = {};
   messageError: string = "";

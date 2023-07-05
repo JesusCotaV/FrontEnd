@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment'
 })
 export class HomeComponent implements OnInit {
   title = 'FrontEnd';
-  readonly APIurl = `http://localhost:${environment.puerto}/usuario/`? `http://localhost:${environment.puerto}/usuario/` : `https://localhost:${environment.puerto}/usuario/`;
+  APIurl:string="";
   usuario: any = {};
   Usuarioxid: any = {};
 
@@ -84,7 +84,32 @@ export class HomeComponent implements OnInit {
     return Array(this.totalPages).fill(0).map((_, index) => index + 1);
   }
 
+  async getUrl() {
+    try {
+      debugger;
+      const httpUrl = `http://localhost:${environment.puerto}/usuario/Listar`;
+      const response = await fetch(httpUrl);
+
+      if (response.ok) {
+        // La URL HTTP funciona correctamente
+        this.APIurl = `http://localhost:${environment.puerto}/usuario/`;
+      } else {
+        throw new Error('URL HTTP no disponible');
+      }
+    } catch {
+      // La URL HTTP no funciona, se utiliza la URL HTTPS
+      this.APIurl = `https://localhost:${environment.puerto}/usuario/`;
+    }
+  }
+
+  async ngOnInit() {
+    await this.getUrl();
+    this.refreshNotes();
+    this.numberInputListener();
+  }
+
   refreshNotes() {
+    debugger;
     this.http.get(this.APIurl + 'Listar').subscribe(data => {
       this.notes = data;
       this.totalPages = Math.ceil(this.notes.length / this.itemsPerPage);
@@ -112,11 +137,6 @@ export class HomeComponent implements OnInit {
         this.estadoSeleccionado = note['Estado'];
       }
     });
-  }
-
-  ngOnInit() {
-    this.refreshNotes();
-    this.numberInputListener();
   }
 
   MessageValue(Mensaje: string) {
